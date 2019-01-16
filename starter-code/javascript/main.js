@@ -21,17 +21,18 @@ function main() {
   chronometer.setPrintTime(printTime);
 
   function printMinutes() {
-    var minutes = chronometer.setMinutes();
-    var arrMin = chronometer.twoDigitsNumber(minutes).split('');
-    minDec.innerText = String(arrMin[0]);
-    minUni.innerText = String(arrMin[1]);
+    setValuesForTimer(chronometer.setMinutes(), minDec, minUni)
   }
 
   function printSeconds() {
-    var seconds = chronometer.setSeconds();
-    var arrSec = chronometer.twoDigitsNumber(seconds).split('');
-    secDec.innerText = String(arrSec[0]);
-    secUni.innerText = String(arrSec[1]);
+    setValuesForTimer(chronometer.setSeconds(), secDec, secUni);
+  }
+
+  function setValuesForTimer (timeValue, timeDec, timeUni) {
+    var time = timeValue;
+    var arrTime = chronometer.twoDigitsNumber(time).split('');
+    timeDec.innerText = String(arrTime[0]);
+    timeUni.innerText = String(arrTime[1]);
   }
 
   // function printMilliseconds() {
@@ -61,22 +62,7 @@ function main() {
   // function setSplitBtn() {
   // }
 
-  function setStartBtn() {
-    printTime();
-    chronometer.startClick();
-    btnLeft.innerText = "STOP";
-    btnRight.innerText = "SPLIT";
-    btnLeft.classList.remove('start');
-    btnLeft.classList.add('btn');
-    btnLeft.classList.add('stop');
-    btnRight.classList.remove('reset');
-    btnRight.classList.add('btn');
-    btnRight.classList.add('split');
-  }
-
-  function setResetBtn() {
-    chronometer.resetClick();
-    printTime();
+  function changeTextButtons () {
     btnLeft.innerText = "STOP";
     btnRight.innerText = "SPLIT";
     btnLeft.classList.remove('start');
@@ -85,6 +71,18 @@ function main() {
     btnRight.classList.remove('reset')
     btnRight.classList.add('btn');
     btnRight.classList.add('split');
+  }
+
+  function setStartBtn() {
+    chronometer.startClick();
+    printTime();
+    changeTextButtons()
+  }
+
+  function setResetBtn() {
+    chronometer.resetClick();
+    printTime();
+    changeTextButtons()
   }
 
   // Start/Stop Button
